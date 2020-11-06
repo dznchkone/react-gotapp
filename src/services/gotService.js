@@ -28,12 +28,12 @@ export default class GotService {
       return this.getResource(`books/${id}`);
   }
 
-    getAllHouses = () => {
-        return this.getResource(`houses?page=5&pageSize=10`)
-    }
+  getAllHouses = () => {
+      return this.getResource(`houses?page=5&pageSize=10`)
+  }
 
-    getHouse = (id) => {
-        return this.getResource(`houses/${id}`);
-    }
+  getHouse = (id) => {
+      return this.getResource(`houses/${id}`);
+  }
 
 }
