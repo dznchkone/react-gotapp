@@ -12,28 +12,65 @@ export default class GotService {
       return await res.json();
   }
 
-  getAllCharacters = () =>{
-    return this.getResource(`characters?page=5&pageSize=10`);
+    async getAllCharacters () {
+    const res = await this.getResource(`characters?page=5&pageSize=10`);
+    return res.map(this._transformCharacter)
   }
 
-  getCharacter = (id) =>{
-    return this.getResource(`characters/${id}`);
+    async getCharacter (id) {
+    const res = await this.getResource(`characters/${id}`);
+    return this._transformCharacter(res);
   }
 
-  getAllBooks = () => {
-      return this.getResource(`books?page=5&pageSize=10`)
+  async getAllBooks  ()  {
+      const res = await this.getResource(`books?page=5&pageSize=10`);
+      return res.map(this._transformBook)
   }
 
-  getBook = (id) => {
-      return this.getResource(`books/${id}`);
+  async getBook (id) {
+      const res =  this.getResource(`books/${id}`);
+      return this._transformBook(res);
   }
 
-  getAllHouses = () => {
-      return this.getResource(`houses?page=5&pageSize=10`)
+  async getAllHouses () {
+      const res = await this.getResource(`houses?page=5&pageSize=10`)
+      return res.map(this._transformHouse)
   }
 
-  getHouse = (id) => {
-      return this.getResource(`houses/${id}`);
+  async getHouse (id) {
+      const res = await this.getResource(`houses/${id}`);
+      return this._transformHouse(res);
   }
 
+  _transformCharacter({name,gender,born, died, culture}) {
+      return {
+          name,
+          gender,
+          born,
+          died,
+          culture
+      }
+  }
+
+  _transformBook({name, numberOfPages, publisher, released }){
+    return {
+        name,
+        numberOfPages,
+        publisher,
+        released
+    }
+  }
+
+  _transformHouse({name, region, words, titles, overlord, ancestralWeapons}){
+      return {
+          name,
+          region,
+          words,
+          titles,
+          overlord,
+          ancestralWeapons
+      }
+  }
 }
+
+//TODO Сделать функционал, который замещал бы пустае поля пришедшие от API
