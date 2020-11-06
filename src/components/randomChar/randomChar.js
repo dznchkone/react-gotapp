@@ -1,35 +1,33 @@
 import React, {Component} from 'react';
 
-
-import './randomChar.css';
-import {ListGroup, ListGroupItem} from 'reactstrap';
+import {ListGroup, ListGroupItem, Card, CardTitle} from 'reactstrap';
 
 export default class RandomChar extends Component {
 
     render() {
 
         return (
-            <div className="random-block rounded">
-                <h4>Random Character: John</h4>
-                <ListGroup flush>
+            <Card body className="p-3 rounded mb-5">
+                <CardTitle tag="h4" className="text-center mb-3">Random Character: John</CardTitle>
+                <ListGroup flush className="border-top-0">
                     <ListGroupItem className="d-flex justify-content-between">
-                        <span className="term">Gender </span>
+                        <span className="font-weight-bold">Gender </span>
                         <span>male</span>
                     </ListGroupItem>
                     <ListGroupItem className="d-flex justify-content-between">
-                        <span className="term">Born </span>
+                        <span className="font-weight-bold">Born </span>
                         <span>11.03.1039</span>
                     </ListGroupItem>
                     <ListGroupItem className="d-flex justify-content-between">
-                        <span className="term">Died </span>
+                        <span className="font-weight-bold">Died </span>
                         <span>13.09.1089</span>
                     </ListGroupItem>
                     <ListGroupItem className="d-flex justify-content-between">
-                        <span className="term">Culture </span>
+                        <span className="font-weight-bold">Culture </span>
                         <span>Anarchy</span>
                     </ListGroupItem>
                 </ListGroup>
-            </div>
+            </Card>
         );
     }
 }

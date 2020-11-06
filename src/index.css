@@ -18,3 +18,9 @@ a:active {
     text-decoration: none;
     color: inherit;
 }
+
+.select-error {
+    color: #fff;
+    text-align: center;
+    font-size: 26px;
+}

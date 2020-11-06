@@ -1,34 +1,32 @@
 import React, {Component} from 'react';
 
-
-import './charDetails.css';
-import {ListGroup, ListGroupItem} from 'reactstrap';
+import {ListGroup, ListGroupItem, Card, CardTitle} from 'reactstrap';
 
 export default class CharDetails extends Component {
 
     render() {
         return (
-            <div className="char-details rounded">
-                <h4>John Snow</h4>
-                <ListGroup flush>
+            <Card body className="p-3 rounded">
+                <CardTitle tag="h4" className="text-center mb-3">John Snow</CardTitle>
+                <ListGroup flush className="border-top-0">
                     <ListGroupItem className="d-flex justify-content-between">
-                        <span className="term">Gender</span>
+                        <span className="font-weight-bold">Gender</span>
                         <span>male</span>
                     </ListGroupItem>
                     <ListGroupItem className="d-flex justify-content-between">
-                        <span className="term">Born</span>
+                        <span className="font-weight-bold">Born</span>
                         <span>1783</span>
                     </ListGroupItem>
                     <ListGroupItem className="d-flex justify-content-between">
-                        <span className="term">Died</span>
+                        <span className="font-weight-bold">Died</span>
                         <span>1820</span>
                     </ListGroupItem>
                     <ListGroupItem className="d-flex justify-content-between">
-                        <span className="term">Culture</span>
+                        <span className="font-weight-bold">Culture</span>
                         <span>First</span>
                     </ListGroupItem>
                 </ListGroup>
-            </div>
+            </Card>
         );
     }
 }

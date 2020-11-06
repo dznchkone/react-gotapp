@@ -1,29 +1,26 @@
 import React from 'react';
 
-import './header.css';
+import {Navbar, NavbarBrand, Nav, NavItem, NavLink} from 'reactstrap';
+
 
 
 
 const Header = () => {
     return (
-        <div className="header-block">
-            <h3>
-                <a href="#">
-                Game of Thrones DB
-                </a>
-            </h3>
-            <ul>
-                <li>
-                    <a href="#">Characters</a>
-                </li>
-                <li>
-                    <a href="#">Houses</a>
-                </li>
-                <li>
-                    <a href="#">Books</a>   
-                </li>
-            </ul>
-        </div>
+        <Navbar expand="md" className="text-white justify-content-between">
+            <NavbarBrand href="#">Game of Thrones DB</NavbarBrand>
+            <Nav>
+                <NavItem>
+                    <NavLink href="#">Characters</NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink href="#">Houses</NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink href="#">Books</NavLink>
+                </NavItem>
+            </Nav>
+        </Navbar>
     );
 };
 
