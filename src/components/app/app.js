@@ -4,13 +4,22 @@ import Header from '../header';
 import RandomChar from '../randomChar';
 import ItemList from '../itemList';
 import CharDetails from '../charDetails';
+import ErrorMessage from "../errorMessage";
 
 
 
 export default class App extends Component {
     state = {
         showRandomChar: true,
-        selectedChar: 130
+        selectedChar: 130,
+        error: null
+    }
+
+    componentDidCatch() {
+        console.log('Error');
+        this.setState({
+            error:true
+        })
     }
 
     onCharSelected = (id) => {
@@ -31,6 +40,10 @@ export default class App extends Component {
 
     render() {
         const randomCharacter = this.state.showRandomChar ? <RandomChar/>: null;
+
+        if(this.state.error){
+            return <ErrorMessage message="Whoops... Something goes wrong"/>
+        }
 
         return (
             <>
