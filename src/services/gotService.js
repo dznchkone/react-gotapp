@@ -12,12 +12,12 @@ export default class GotService {
       return await res.json();
   }
 
-    async getAllCharacters () {
+  async getAllCharacters () {
     const res = await this.getResource(`characters?page=5&pageSize=10`);
     return res.map(this._transformCharacter)
   }
 
-    async getCharacter (id) {
+  async getCharacter (id) {
     const res = await this.getResource(`characters/${id}`);
     return this._transformCharacter(res);
   }
@@ -42,35 +42,49 @@ export default class GotService {
       return this._transformHouse(res);
   }
 
-  _transformCharacter({name,gender,born, died, culture}) {
-      return {
+  _transformCharacter = ({name, gender, born, died, culture}) => {
+      return this._transformEmptyFields({
           name,
           gender,
           born,
           died,
           culture
-      }
+      })
   }
 
-  _transformBook({name, numberOfPages, publisher, released }){
-    return {
+  _transformBook = ({name, numberOfPages, publisher, released}) => {
+    return this._transformEmptyFields({
         name,
         numberOfPages,
         publisher,
         released
-    }
+    })
   }
 
-  _transformHouse({name, region, words, titles, overlord, ancestralWeapons}){
-      return {
+  _transformHouse = ({name, region, words, titles, overlord, ancestralWeapons}) => {
+      return this._transformEmptyFields({
           name,
           region,
           words,
           titles,
           overlord,
           ancestralWeapons
-      }
+      })
   }
-}
 
-//TODO Сделать функционал, который замещал бы пустае поля пришедшие от API
+  _transformEmptyFields (obj) {
+      for (let key in obj) {
+          obj[key] = obj[key] ? obj[key] : ' no data :('
+      }
+      return obj;
+  }
+
+  // isSet(data){
+  //     if(data){
+  //         return data;
+  //     } else {
+  //         return 'no data :(';
+  //     }
+  //
+  // }
+}
