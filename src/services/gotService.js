@@ -42,14 +42,18 @@ export default class GotService {
       return this._transformHouse(res);
   }
 
-  _transformCharacter = ({name, gender, born, died, culture}) => {
-      return this._transformEmptyFields({
-          name,
-          gender,
-          born,
-          died,
-          culture
-      })
+  _transformCharacter = ({url, name, gender, born, died, culture}) => {
+      const id = this._getIdFromURL(url)
+      return {
+          id,
+          ...this._transformEmptyFields({
+              name,
+              gender,
+              born,
+              died,
+              culture
+          })
+      }
   }
 
   _transformBook = ({name, numberOfPages, publisher, released}) => {
@@ -77,6 +81,11 @@ export default class GotService {
           obj[key] = obj[key] ? obj[key] : ' no data :('
       }
       return obj;
+  }
+
+  _getIdFromURL(url){
+      const regex = /\d/g;
+      return url.match(regex).join('');
   }
 
   // isSet(data){

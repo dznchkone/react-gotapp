@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import gotService from '../../services/gotService';
 import ErrorMessage from "../errorMessage";
 
-
 import {ListGroup, ListGroupItem, Card, CardTitle, Spinner} from 'reactstrap';
 
 export default class RandomChar extends Component {
 
     gotService = new gotService();
+
     state  = {
         char: {},
         loading: true,
@@ -15,13 +15,13 @@ export default class RandomChar extends Component {
     };
 
     componentDidMount() {
-        console.log('mounting');
+
         this.updateChar();
-        this.timerId = setInterval(this.updateChar, 1500);
+        this.timerId = setInterval(this.updateChar, 60000);
     }
 
     componentWillUnmount() {
-        console.log('unmounting');
+
         clearInterval(this.timerId);
     }
 
@@ -48,7 +48,7 @@ export default class RandomChar extends Component {
 
 
     render() {
-        console.log('render');
+
         const {char, loading, error} = this.state;
 
         const errorMessage = error ? <ErrorMessage message="Something goes wrong"/> : null;
@@ -70,7 +70,8 @@ const View = ({char}) => {
     const {name, gender, born, died, culture} = char;
     return (
         <>
-            <CardTitle tag="h4" className="text-center mb-3">Random Character: {name}</CardTitle>
+            <CardTitle tag="h4" className="text-center mb-3">Random Character: </CardTitle>
+            <h4 className="text-center">{name}</h4>
             <ListGroup flush className="border-top-0">
                 <ListGroupItem className="d-flex justify-content-between">
                     <span className="font-weight-bold">Gender </span>

@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
 import gotService from "../../services/gotService";
 
-import {ListGroup, ListGroupItem, Spinner} from 'reactstrap';
+import {Card, ListGroup, ListGroupItem, Spinner} from 'reactstrap';
+import ErrorMessage from "../errorMessage";
 
 
 export default class ItemList extends Component {
     gotService = new gotService();
 
     state = {
-        charList: null
+        charList: null,
+        error: false
     }
 
     componentDidMount() {
@@ -20,15 +22,30 @@ export default class ItemList extends Component {
                     }
                 )
             })
+            .catch(this.onError)
+    }
+
+    componentDidCatch() {
+        this.setState({
+            charList: null,
+            error: true
+        })
+    }
+
+    onError = () =>{
+        this.setState({
+            charList: null,
+            error: true
+        })
     }
 
     renderItems(arr){
-        return arr.map((item, i)=>{
+        return arr.map((item)=>{
             return (
                 <ListGroupItem
-                    key = {i}
+                    key = {item.id}
                     style={{cursor: 'pointer'}}
-                    onClick={() =>{this.props.onCharSelected(41 + i)}}
+                    onClick={() =>{this.props.onCharSelected(item.id)}}
                 >
                     {item.name}
                 </ListGroupItem >
@@ -37,18 +54,23 @@ export default class ItemList extends Component {
     }
 
     render() {
-        const {charList} = this.state
+        const {charList, error} = this.state
 
-        if(!charList) {
-           return <Spinner> </Spinner>
+        let temp = null;
+        if(!charList&&error) {
+            temp = <ErrorMessage message="Whoops...Can't loading characters list"/>
+        } else if(!charList) {
+            temp =  <Spinner> </Spinner>
         }
-
-        const items = this.renderItems(charList);
+        const items = !charList ? null : this.renderItems(charList);
 
         return (
-            <ListGroup>
-                {items}
-            </ListGroup>
+            <Card body className="p-3 rounded">
+                <ListGroup>
+                    {temp}
+                    {items}
+                </ListGroup>
+            </Card>
         );
     }
 }
