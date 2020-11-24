@@ -84,7 +84,7 @@ export default class GotService {
   }
 
   _getIdFromURL(url){
-      const regex = /\d/g;
+      const regex = /\d/g;    
       return url.match(regex).join('');
   }
 
