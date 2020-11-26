@@ -1,24 +1,25 @@
 import React, {Component} from 'react';
-import gotService from "../../services/gotService";
+
 
 import {Card, ListGroup, ListGroupItem, Spinner} from 'reactstrap';
 import ErrorMessage from "../errorMessage";
 
 
 export default class ItemList extends Component {
-    gotService = new gotService();
 
     state = {
-        charList: null,
+        itemList: null,
         error: false
     }
 
     componentDidMount() {
-        this.gotService.getAllCharacters()
-            .then((charList)=>{
+        const {getData} = this.props;
+
+        getData()
+            .then((itemList)=>{
                 this.setState(
                     {
-                        charList
+                        itemList
                     }
                 )
             })
@@ -27,42 +28,44 @@ export default class ItemList extends Component {
 
     componentDidCatch() {
         this.setState({
-            charList: null,
+            itemList: null,
             error: true
         })
     }
 
     onError = () =>{
         this.setState({
-            charList: null,
+            itemList: null,
             error: true
         })
     }
 
     renderItems(arr){
         return arr.map((item)=>{
+            const {id} = item;
+            const label = this.props.renderItem(item);
             return (
                 <ListGroupItem
-                    key = {item.id}
+                    key = {id}
                     style={{cursor: 'pointer'}}
-                    onClick={() =>{this.props.onCharSelected(item.id)}}
+                    onClick={() =>{this.props.onItemSelected(item.id)}}
                 >
-                    {item.name}
+                    {label}
                 </ListGroupItem >
             )
         })
     }
 
     render() {
-        const {charList, error} = this.state
+        const {itemList, error} = this.state
 
         let temp = null;
-        if(!charList&&error) {
+        if(!itemList&&error) {
             temp = <ErrorMessage message="Whoops...Can't loading characters list"/>
-        } else if(!charList) {
+        } else if(!itemList) {
             temp =  <Spinner> </Spinner>
         }
-        const items = !charList ? null : this.renderItems(charList);
+        const items = !itemList ? null : this.renderItems(itemList);
 
         return (
             <Card body className="p-3 rounded">

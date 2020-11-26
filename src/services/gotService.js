@@ -12,32 +12,32 @@ export default class GotService {
       return await res.json();
   }
 
-  async getAllCharacters () {
+   getAllCharacters = async () => {
     const res = await this.getResource(`characters?page=5&pageSize=10`);
     return res.map(this._transformCharacter)
   }
 
-  async getCharacter (id) {
+   getCharacter = async (id) => {
     const res = await this.getResource(`characters/${id}`);
     return this._transformCharacter(res);
   }
 
-  async getAllBooks  ()  {
-      const res = await this.getResource(`books?page=5&pageSize=10`);
+   getAllBooks = async () => {
+      const res = await this.getResource(`books?page=1&pageSize=10`);
       return res.map(this._transformBook)
   }
 
-  async getBook (id) {
-      const res =  this.getResource(`books/${id}`);
+   getBook = async (id) => {
+      const res = await this.getResource(`books/${id}`);
       return this._transformBook(res);
   }
 
-  async getAllHouses () {
-      const res = await this.getResource(`houses?page=5&pageSize=10`)
+   getAllHouses = async () => {
+      const res = await this.getResource(`houses?page=1&pageSize=10`)
       return res.map(this._transformHouse)
   }
 
-  async getHouse (id) {
+   getHouse  = async (id) => {
       const res = await this.getResource(`houses/${id}`);
       return this._transformHouse(res);
   }
@@ -56,29 +56,39 @@ export default class GotService {
       }
   }
 
-  _transformBook = ({name, numberOfPages, publisher, released}) => {
-    return this._transformEmptyFields({
-        name,
-        numberOfPages,
-        publisher,
-        released
-    })
+  _transformBook = ({url, name, numberOfPages, publisher, released}) => {
+      const id = this._getIdFromURL(url)
+      return {
+          id,
+          ...this._transformEmptyFields({
+              name,
+              numberOfPages,
+              publisher,
+              released
+          })
+      }
   }
 
-  _transformHouse = ({name, region, words, titles, overlord, ancestralWeapons}) => {
-      return this._transformEmptyFields({
-          name,
-          region,
-          words,
-          titles,
-          overlord,
-          ancestralWeapons
-      })
+  _transformHouse = ({url, name, region, words, titles, overlord, ancestralWeapons}) => {
+      const id = this._getIdFromURL(url)
+      return {
+          id,
+          ...this._transformEmptyFields({
+              name,
+              region,
+              words,
+              titles,
+              ancestralWeapons
+          })
+      }
   }
 
   _transformEmptyFields (obj) {
       for (let key in obj) {
-          obj[key] = obj[key] ? obj[key] : ' no data :('
+          obj[key] = (obj[key]) ? obj[key] : ' no data :('
+          if (Array.isArray(obj[key])) {
+              obj[key] = obj[key][0] ? obj[key]: 'no data :(';
+          }
       }
       return obj;
   }
