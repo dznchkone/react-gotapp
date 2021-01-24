@@ -1,12 +1,12 @@
 import  React, {Component} from 'react';
-import ItemList from '../../itemList';
-import ItemDetails, {Field} from '../../itemDetails';
-import ErrorMessage from "../../errorMessage";
-import RowBlock from "../../rowBlock";
+import ItemList from '../itemList';
+import ItemDetails, {Field} from '../itemDetails';
+import ErrorMessage from '../errorMessage';
+import RowBlock from '../rowBlock';
 
-import gotService from "../../../services/gotService";
+import gotService from '../../services/gotService';
 
-export default class HousesPage extends Component {
+export default class CharacterPage extends Component {
     gotService = new gotService();
 
     state = {
@@ -34,16 +34,16 @@ export default class HousesPage extends Component {
         const itemList = (
             <ItemList
                 onItemSelected={this.onItemSelected}
-                getData={this.gotService.getAllHouses}
-                renderItem={({name})=>`House name: ${name}`}/>
+                getData={this.gotService.getAllCharacters}
+                renderItem={({name, gender})=>`${name} (${gender})`}/>
         );
 
         const charDetails = (
-            <ItemDetails itemId={this.state.selectedItem} getDetails={this.gotService.getHouse}>
-                <Field field='region' label='Region'/>
-                <Field field='words' label='Words'/>
-                <Field field='titles' label='Titles'/>
-                <Field field='ancestralWeapons' label='Ancestral Weapons'/>
+            <ItemDetails itemId={this.state.selectedItem} getDetails={this.gotService.getCharacter}>
+                <Field field='gender' label='Gender'/>
+                <Field field='born' label='Born'/>
+                <Field field='died' label='Died'/>
+                <Field field='culture' label='Culture'/>
             </ItemDetails>
 
         );

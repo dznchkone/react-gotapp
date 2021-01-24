@@ -1,23 +1,22 @@
 import React from 'react';
 
-import {Navbar, NavbarBrand, Nav, NavItem, NavLink} from 'reactstrap';
-
-
+import {Navbar, Nav, NavItem} from 'reactstrap';
+import {Link} from "react-router-dom";
 
 
 const Header = () => {
     return (
         <Navbar expand="md" className="text-white justify-content-between">
-            <NavbarBrand href="#">Game of Thrones DB</NavbarBrand>
+            <Link className="navbar-brand" to='/'>Game of Thrones DB</Link>
             <Nav>
                 <NavItem>
-                    <NavLink href="#">Characters</NavLink>
+                    <Link className="nav-link" to='/characters/'>Characters</Link>
                 </NavItem>
                 <NavItem>
-                    <NavLink href="#">Houses</NavLink>
+                    <Link className="nav-link" to='/houses/'>Houses</Link>
                 </NavItem>
                 <NavItem>
-                    <NavLink href="#">Books</NavLink>
+                    <Link className="nav-link" to='/books/'>Books</Link>
                 </NavItem>
             </Nav>
         </Navbar>
