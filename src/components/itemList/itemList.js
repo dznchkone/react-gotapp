@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 
 import {Card, ListGroup, ListGroupItem, Spinner} from 'reactstrap';
@@ -10,6 +11,14 @@ export default class ItemList extends Component {
     state = {
         itemList: null,
         error: false
+    }
+
+    static defaultProps = {
+        onItemSelected: () =>{}
+    }
+
+    static propTypes = {
+        onItemSelected: PropTypes.func
     }
 
     componentDidMount() {
@@ -76,4 +85,8 @@ export default class ItemList extends Component {
             </Card>
         );
     }
+}
+
+ItemList.defaultProps = {
+    onItemSelected: () =>{}
 }

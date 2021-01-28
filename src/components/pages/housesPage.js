@@ -53,3 +53,4 @@ export default class HousesPage extends Component {
         )
     }
 }
+

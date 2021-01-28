@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import gotService from '../../services/gotService';
 import ErrorMessage from "../errorMessage";
+import PropTypes from 'prop-types';
 
 import {ListGroup, ListGroupItem, Card, CardTitle, Spinner} from 'reactstrap';
 
@@ -14,10 +15,18 @@ export default class RandomChar extends Component {
         error: false
     };
 
+    static defaultProps = {
+        interval: 1000
+    }
+
+    static propTypes = {
+        interval: PropTypes.number
+    }
+
     componentDidMount() {
 
         this.updateChar();
-        this.timerId = setInterval(this.updateChar, 60000);
+        this.timerId = setInterval(this.updateChar, this.props.interval);
     }
 
     componentWillUnmount() {
@@ -47,6 +56,8 @@ export default class RandomChar extends Component {
     }
 
 
+
+
     render() {
 
         const {char, loading, error} = this.state;
@@ -65,6 +76,7 @@ export default class RandomChar extends Component {
         );
     }
 }
+
 
 const View = ({char}) => {
     const {name, gender, born, died, culture} = char;
