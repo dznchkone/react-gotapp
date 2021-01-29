@@ -85,5 +85,4 @@ const withData = (View, getData)=>{
 
 const {getAllCharacters} = new gotService();
 export default withData(ItemList, getAllCharacters);
-/*withData можно вынести в отдельный компонент и использовать при
-необходимости в других компонентах*/
+/* TODO: withData  вынести в отдельный компонент и использовать при необходимости в других компонентах*/
