@@ -4,16 +4,16 @@ import ErrorMessage from "../errorMessage";
 import gotService from "../../services/gotService";
 
 
-class ItemList extends Component {
-    renderItems(arr){
+function ItemList (props) {
+    function renderItems(arr){
         return arr.map((item)=>{
             const {id} = item;
-            const label = this.props.renderItem(item);
+            const label = props.renderItem(item);
             return (
                 <ListGroupItem
                     key = {id}
                     style={{cursor: 'pointer'}}
-                    onClick={() =>{this.props.onItemSelected(item.id)}}
+                    onClick={() =>{props.onItemSelected(item.id)}}
                 >
                     {label}
                 </ListGroupItem >
@@ -21,9 +21,9 @@ class ItemList extends Component {
         })
     }
 
-    render() {
-        const {data} = this.props
-        const items = this.renderItems(data);
+
+        const {data} = props
+        const items = renderItems(data);
 
         return (
             <Card body className="p-3 rounded">
@@ -32,12 +32,9 @@ class ItemList extends Component {
                 </ListGroup>
             </Card>
         );
-    }
+
 }
 
-ItemList.defaultProps = {
-    onItemSelected: () =>{}
-}
 
 const withData = (View, getData)=>{
     return class extends Component {
@@ -88,3 +85,5 @@ const withData = (View, getData)=>{
 
 const {getAllCharacters} = new gotService();
 export default withData(ItemList, getAllCharacters);
+/*withData можно вынести в отдельный компонент и использовать при
+необходимости в других компонентах*/
