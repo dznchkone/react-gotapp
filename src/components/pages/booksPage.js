@@ -29,8 +29,8 @@ class BooksPage extends Component {
         return(
             <ItemList
                 onItemSelected={(itemId)=>{
-                    this.props.history.push(itemId) //т.к. мы находимся в директории http://localhost/books/ полный путь передавать не надо, пушим только id выбраннй книги.
-                        //после нажатия на книгу происходит переход по ссылке http://localhost/books/:itemId
+                    this.props.history.push(itemId) /*т.к. мы находимся в директории http://localhost/books/ полный путь передавать не надо, пушим только id выбраннй книги.
+                        после нажатия на книгу происходит переход по ссылке http://localhost/books/:itemId*/
                 }}
                 getData={this.gotService.getAllBooks}
                 renderItem={({name, numberOfPages})=>`
